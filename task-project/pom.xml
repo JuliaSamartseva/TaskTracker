@@ -21,5 +21,6 @@
         <module>task-statistics-service</module>
         <module>task-ui-service</module>
         <module>discovery</module>
+        <module>config</module>
     </modules>
 </project>
