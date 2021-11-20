@@ -15,11 +15,9 @@ import java.util.List;
 @RequestMapping("/")
 public class TaskController {
   private final RestTemplate restTemplate;
-  private final String serviceHost;
 
-  public TaskController(RestTemplate restTemplate, @Value("${service.host}") String serviceHost) {
+  public TaskController(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
-    this.serviceHost = serviceHost;
   }
 
   @RequestMapping("")
