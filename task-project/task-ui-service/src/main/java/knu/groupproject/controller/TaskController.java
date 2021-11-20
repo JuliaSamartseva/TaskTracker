@@ -4,6 +4,7 @@ import knu.groupproject.dto.TaskClassDto;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +28,7 @@ public class TaskController {
   }
 
   @GetMapping("/classes")
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
   public ResponseEntity<List<TaskClassDto>> listClasses(){
     return restTemplate
             .exchange("http://task-catalog-service/classes", HttpMethod.GET, null,
