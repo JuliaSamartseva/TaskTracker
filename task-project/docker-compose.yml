@@ -1,0 +1,45 @@
+version: '3'
+services:
+  discovery:
+    image: docker.io/microservice-docker-discovery:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+  config:
+    image: docker.io/microservice-docker-config:0.0.1-SNAPSHOT
+    volumes:
+      - ./config-data:/var/config-data
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+        -Dspring.cloud.config.server.native.searchLocations=/var/config-data
+    depends_on:
+      - discovery
+    ports:
+      - 8888:8888
+  task-catalog-service:
+    image: docker.io/microservice-docker-task-catalog-service:1.0-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    depends_on:
+      - discovery
+      - config
+  task-statistics-service:
+    image: docker.io/microservice-docker-task-statistics-service:1.0-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    depends_on:
+      - discovery
+      - config
+  task-ui-service:
+    image: docker.io/microservice-docker-task-ui-service:1.0-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - discovery
+      - config
+    ports:
+      - 8080:8080
