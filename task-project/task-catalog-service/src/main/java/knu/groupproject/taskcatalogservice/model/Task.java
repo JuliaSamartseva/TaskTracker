@@ -1,16 +1,37 @@
 package knu.groupproject.taskcatalogservice.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "task")
 public class Task {
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "deadline")
     private Date deadline;
+
+    @Column(name = "created")
     private Date created;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
     private Priority priority;
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String name, String description, Date deadline, Date created, Status status, Priority priority) {
         this.name = name;
@@ -19,6 +40,14 @@ public class Task {
         this.created = created;
         this.status = status;
         this.priority = priority;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
