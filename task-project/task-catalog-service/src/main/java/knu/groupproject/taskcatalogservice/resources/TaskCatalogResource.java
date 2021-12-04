@@ -19,22 +19,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/catalog")
 public class TaskCatalogResource {
-    @Autowired
-    private TaskService service;
+  @Autowired private TaskService service;
 
-    @GetMapping("/{userId}")
-    public List<Task> getCatalog(@PathVariable("userId") String userId) {
-        return Collections.singletonList(
-                new Task("Task1", "To do task", parseDate("2022-02-14"), parseDate("2021-02-14"),
-                        Status.CREATED, Priority.HIGH)
-        );
-    }
+  @GetMapping("/{userId}")
+  public List<Task> getCatalog(@PathVariable("userId") String userId) {
+    return Collections.singletonList(
+        new Task(
+            "Task1",
+            "To do task",
+            parseDate("2022-02-14"),
+            parseDate("2021-02-14"),
+            Status.CREATED,
+            Priority.HIGH));
+  }
 
-    public static Date parseDate(String date) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
+  public static Date parseDate(String date) {
+    try {
+      return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    } catch (ParseException e) {
+      return null;
     }
+  }
 }

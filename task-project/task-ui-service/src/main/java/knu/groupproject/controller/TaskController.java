@@ -27,9 +27,11 @@ public class TaskController {
 
   @GetMapping("/classes")
   @PreAuthorize("hasAuthority('SCOPE_profile')")
-  public ResponseEntity<List<TaskClassDto>> listClasses(){
-    return restTemplate
-            .exchange("http://task-catalog-service/classes", HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<TaskClassDto>>() {});
+  public ResponseEntity<List<TaskClassDto>> listClasses() {
+    return restTemplate.exchange(
+        "http://task-catalog-service/classes",
+        HttpMethod.GET,
+        null,
+        new ParameterizedTypeReference<List<TaskClassDto>>() {});
   }
 }

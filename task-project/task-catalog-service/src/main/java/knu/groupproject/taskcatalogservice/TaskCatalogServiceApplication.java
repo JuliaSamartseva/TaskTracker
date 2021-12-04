@@ -16,20 +16,25 @@ import static knu.groupproject.taskcatalogservice.resources.TaskCatalogResource.
 
 @SpringBootApplication
 public class TaskCatalogServiceApplication {
-    private final Logger logger = LoggerFactory.getLogger(TaskCatalogServiceApplication.class);
+  private final Logger logger = LoggerFactory.getLogger(TaskCatalogServiceApplication.class);
 
-    @Autowired
-    private TaskRepository repository;
+  @Autowired private TaskRepository repository;
 
-    public static void main(String[] args) {
-        SpringApplication.run(TaskCatalogServiceApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(TaskCatalogServiceApplication.class, args);
+  }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void runAfterStartup() {
-        Task task = new Task("Task2", "To do task", parseDate("2022-02-14"), parseDate("2021-02-14"),
-                Status.CREATED, Priority.HIGH);
-        logger.info("Saving new customer...");
-        repository.save(task);
-    }
+  @EventListener(ApplicationReadyEvent.class)
+  public void runAfterStartup() {
+    Task task =
+        new Task(
+            "Task2",
+            "To do task",
+            parseDate("2022-02-14"),
+            parseDate("2021-02-14"),
+            Status.CREATED,
+            Priority.HIGH);
+    logger.info("Saving new customer...");
+    repository.save(task);
+  }
 }

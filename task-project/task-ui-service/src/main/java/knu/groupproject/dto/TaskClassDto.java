@@ -1,4 +1,3 @@
 package knu.groupproject.dto;
 
-public class TaskClassDto {
-}
+public class TaskClassDto {}
