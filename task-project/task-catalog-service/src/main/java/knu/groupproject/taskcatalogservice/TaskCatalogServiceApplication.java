@@ -28,16 +28,38 @@ public class TaskCatalogServiceApplication {
 
   @EventListener(ApplicationReadyEvent.class)
   public void runAfterStartup() {
-    Task task =
-        new Task(
-            "Task2",
-            "To do task",
-            parseDate("2022-02-14"),
-            parseDate("2021-02-14"),
-            Status.CREATED,
-            Priority.HIGH,
-            "user@gmail.com");
+    Task task1 =
+            new Task(
+                    "Task1",
+                    "To do task",
+                    parseDate("2022-02-14"),
+                    parseDate("2021-02-14"),
+                    Status.CREATED,
+                    Priority.HIGH,
+                    "montag.marinka@gmail.com");
     logger.info("Saving new customer...");
-    repository.save(task);
+    repository.save(task1);
+    Task task2 =
+            new Task(
+                    "Task2",
+                    "To do task",
+                    parseDate("2022-02-14"),
+                    parseDate("2021-02-14"),
+                    Status.CREATED,
+                    Priority.LOW,
+                    "montag.marinka@gmail.com");
+    logger.info("Saving new customer...");
+    repository.save(task2);
+    Task task3 =
+            new Task(
+                    "Task3",
+                    "To do task",
+                    parseDate("2022-02-14"),
+                    parseDate("2021-02-14"),
+                    Status.CREATED,
+                    Priority.MEDIUM,
+                    "montag.marinka@gmail.com");
+    logger.info("Saving new customer...");
+    repository.save(task3);
   }
 }

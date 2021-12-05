@@ -19,9 +19,9 @@ import java.util.List;
 public class TaskCatalogResource {
   @Autowired private TaskService taskService;
 
-  @GetMapping
-  public List<TaskClassDto> getCatalog() {
-    return taskService.getAllTasks();
+  @GetMapping("/{email}")
+  public List<TaskClassDto> getCatalog(@PathVariable String email) {
+    return taskService.getAllTasks(email);
   }
 
   public static Date parseDate(String date) {

@@ -38,7 +38,7 @@ public class TaskController {
     logger.warn("Email:" + email);
     logger.info("Get all tasks for user");
     return restTemplate.exchange(
-        "http://task-catalog-service/catalog",
+        "http://task-catalog-service/catalog/"+email,
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<List<TaskClassDto>>() {});

@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 @Service
 public class TaskService {
   @Autowired private TaskRepository taskRepository;
-  public List<TaskClassDto> getAllTasks() {
+  public List<TaskClassDto> getAllTasks(String userEmail) {
     return taskRepository
-            .findAll()
+            .findAllByUserEmail(userEmail)
             .stream()
             .map(
                     taskObject -> TaskClassDto
