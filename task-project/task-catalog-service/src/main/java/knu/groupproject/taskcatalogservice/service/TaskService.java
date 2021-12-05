@@ -26,7 +26,7 @@ public class TaskService {
                             .created(taskObject.getCreated().toString())
                             .status(taskObject.getStatus().toString())
                             .priority(taskObject.getPriority().toString())
-                            .userId(taskObject.getUserId())
+                            .userEmail(taskObject.getUserEmail())
                             .build()
 
             )
