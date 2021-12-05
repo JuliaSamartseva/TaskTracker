@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.event.EventListener;
 
 import static knu.groupproject.taskcatalogservice.resources.TaskCatalogResource.parseDate;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class TaskCatalogServiceApplication {
   private final Logger logger = LoggerFactory.getLogger(TaskCatalogServiceApplication.class);
 
@@ -33,7 +35,8 @@ public class TaskCatalogServiceApplication {
             parseDate("2022-02-14"),
             parseDate("2021-02-14"),
             Status.CREATED,
-            Priority.HIGH);
+            Priority.HIGH,
+            1L);
     logger.info("Saving new customer...");
     repository.save(task);
   }

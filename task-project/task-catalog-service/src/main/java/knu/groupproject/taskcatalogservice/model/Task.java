@@ -28,6 +28,9 @@ public class Task {
   @Enumerated(EnumType.STRING)
   private Priority priority;
 
+  @Column(name = "userId")
+  private Long userId;
+
   public Task() {}
 
   public Task(
@@ -36,13 +39,15 @@ public class Task {
       Date deadline,
       Date created,
       Status status,
-      Priority priority) {
+      Priority priority,
+      Long userId) {
     this.name = name;
     this.description = description;
     this.deadline = deadline;
     this.created = created;
     this.status = status;
     this.priority = priority;
+    this.userId = userId;
   }
 
   public long getId() {
@@ -99,5 +104,13 @@ public class Task {
 
   public void setPriority(Priority priority) {
     this.priority = priority;
+  }
+
+  public Long getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 }

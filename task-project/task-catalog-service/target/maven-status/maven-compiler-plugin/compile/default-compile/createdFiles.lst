@@ -1,6 +1,9 @@
 knu\groupproject\taskcatalogservice\TaskCatalogServiceApplication.class
+knu\groupproject\taskcatalogservice\dto\TaskClassDto$TaskClassDtoBuilder.class
 knu\groupproject\taskcatalogservice\model\Task.class
 knu\groupproject\taskcatalogservice\model\Priority.class
 knu\groupproject\taskcatalogservice\repository\TaskRepository.class
+knu\groupproject\taskcatalogservice\dto\TaskClassDto.class
 knu\groupproject\taskcatalogservice\resources\TaskCatalogResource.class
 knu\groupproject\taskcatalogservice\model\Status.class
+knu\groupproject\taskcatalogservice\service\TaskService.class
