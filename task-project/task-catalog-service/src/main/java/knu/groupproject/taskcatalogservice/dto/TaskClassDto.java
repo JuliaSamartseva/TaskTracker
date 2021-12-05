@@ -16,5 +16,5 @@ public class TaskClassDto {
   private String created;
   private String status;
   private String priority;
-  private Long userId;
+  private String userEmail;
 }

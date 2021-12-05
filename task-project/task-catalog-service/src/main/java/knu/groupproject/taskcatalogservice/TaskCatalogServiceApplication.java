@@ -36,7 +36,7 @@ public class TaskCatalogServiceApplication {
             parseDate("2021-02-14"),
             Status.CREATED,
             Priority.HIGH,
-            1L);
+            "user@gmail.com");
     logger.info("Saving new customer...");
     repository.save(task);
   }
