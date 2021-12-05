@@ -9,13 +9,58 @@
 
     <div class="card bg-light mx-auto" style="max-width: 600px;">
         <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title mt-3 text-center">Product manager</h4>
+            <h4 class="card-title mt-3 text-center">Add task</h4>
             <br>
         </article>
+
+        <form class="container" action="/add-task" method="POST">
+            <div class="form-group">
+                <label for="name">Task name</label>
+                <input class="form-control" id="name">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Task description</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+
+            <label for="exampleFormControlSelect1">Priority</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>HIGH</option>
+                <option>MEDIUM</option>
+                <option>LOW</option>
+            </select>
+
+            <br>
+            <label for="deadline">Deadline</label>
+            <div class="row">
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input id="deadline" type='text' class="form-control" />
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker();
+                    });
+                </script>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+        </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="static/js/add-task.js"></script>
+
 </body>
 </html>
