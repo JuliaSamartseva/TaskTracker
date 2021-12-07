@@ -22,7 +22,7 @@ public class TaskCatalogResource {
   @GetMapping
   public List<TaskClassDto> getCatalog() {
     logger.info("Getting task list");
-    return TaskMapper.mapTaskList(taskService.getAllTasks());
+    return TaskMapper.mapTaskList(taskService.getAllTasks(email));
   }
 
   @PostMapping("/add-task")

@@ -36,17 +36,19 @@ public class TaskController {
   @PreAuthorize("hasAuthority('SCOPE_profile')")
   public ResponseEntity<List<TaskClassDto>> listCatalog(@AuthenticationPrincipal OidcUser user) {
     String email = user.getEmail();
-    logger.warn("Email:" + email);
+    logger.info("Email:" + email);
     logger.info("Get all tasks for user");
     return restTemplate.exchange(
-        "http://task-catalog-service/catalog",
+        "http://task-catalog-service/catalog/"+email,
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<List<TaskClassDto>>() {});
   }
 
-  @RequestMapping(value="/add-task", method=RequestMethod.POST)
+  @RequestMapping(value="/tasks/add-task-post", method=RequestMethod.POST)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
   public ResponseEntity<?> addTask(@AuthenticationPrincipal OidcUser user, @RequestBody TaskClassDto task) {
+    logger.info("Add task for user " + task.getName());
     String email = user.getEmail();
     task.setUserEmail(email);
 

@@ -12,7 +12,7 @@ public class TaskClassDto {
   @JsonProperty("name")
   private String name;
 
-  @JsonProperty("name")
+  @JsonProperty("description")
   private String description;
 
   @JsonProperty("deadline")
