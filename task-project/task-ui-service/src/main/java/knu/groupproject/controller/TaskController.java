@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.scheduling.config.Task;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -26,16 +27,16 @@ public class TaskController {
     return new ModelAndView("index");
   }
 
-  @RequestMapping("/index")
-  public ModelAndView index2() {
-    return new ModelAndView("index");
+  @RequestMapping("/add-task")
+  public ModelAndView addTask() {
+    return new ModelAndView("add-task");
   }
 
   @RequestMapping("/classes")
   @PreAuthorize("hasAuthority('SCOPE_profile')")
-  public ResponseEntity<List<TaskClassDto>> listClasses(@AuthenticationPrincipal OidcUser user) {
+  public ResponseEntity<List<TaskClassDto>> listCatalog(@AuthenticationPrincipal OidcUser user) {
     String email = user.getEmail();
-    logger.warn("Email:" + email);
+    logger.info("Email:" + email);
     logger.info("Get all tasks for user");
     return restTemplate.exchange(
         "http://task-catalog-service/catalog/"+email,
@@ -44,4 +45,19 @@ public class TaskController {
         new ParameterizedTypeReference<List<TaskClassDto>>() {});
   }
 
+  @RequestMapping(value="/tasks/add-task-post", method=RequestMethod.POST)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> addTask(@AuthenticationPrincipal OidcUser user, @RequestBody TaskClassDto task) {
+    logger.info("Add task for user " + task.getName());
+    String email = user.getEmail();
+    task.setUserEmail(email);
+
+    Date date = new Date();
+    task.setCreated(date.toString());
+
+    return restTemplate.postForObject(
+            "http://task-catalog-service/catalog/add-task",
+            task,
+            ResponseEntity.class);
+  }
 }
