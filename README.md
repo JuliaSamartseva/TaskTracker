@@ -13,7 +13,13 @@ cd TaskTracker/task-project
 
 ### Authentication
 
-Project uses OAuth 2.0 environment with Okta as an authentication provider. Before running the application, copy your issuer, client ID, and client secret from Okta developer account into `task-project/config-data/task-ui-service.properties`.
+Project uses OAuth 2.0 environment with Okta as an authentication provider. Before running the application, copy your issuer, client ID, and client secret from Okta developer account into `task-project/config-data/task-ui-service.properties` in the following format:
+
+```
+okta.oauth2.issuer=<issuer>
+okta.oauth2.clientId=<clientId>
+okta.oauth2.clientSecret=<clientSecret>
+```
 
 ### Docker
 
