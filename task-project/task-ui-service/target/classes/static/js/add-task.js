@@ -1,3 +1,20 @@
+$(function() {
+    $("form[id='addTask']").validate({
+        rules: {
+            name: "required",
+            description: "required",
+            priority: "required",
+            deadline: "required"
+        },
+        messages: {
+            firstname: "Please enter task name",
+            description: "Please enter task description",
+            priority: "Please choose priority",
+            deadline: "Please choose a deadline"
+        }
+    });
+});
+
 $("#addTask").submit(function(e) {
     e.preventDefault();
     let form = $(this);
@@ -22,6 +39,11 @@ $("#addTask").submit(function(e) {
         },
         url: url,
         data: JSON.stringify(config),
-        dataType: 'json'
+        success: function() {
+            window.location.href = "/";
+        },
+        error: function() {
+            alert('Error occurred');
+        }
     });
 });

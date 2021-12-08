@@ -3,60 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Add task</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
-    <nav class="navbar navbar-default">
-        <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}"
-              class="navbar-form navbar-right">
-            <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
-        </form>
-        <form method="get" th:action="@{/oauth2/authorization/okta}"
-              th:unless="${#authorization.expression('isAuthenticated()')}">
-            <button id="login-button" class="btn btn-primary" type="submit">Login</button>
-        </form>
-    </nav>
+<nav class="navbar navbar-default">
+    <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}"
+          class="navbar-form navbar-right">
+        <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
+    </form>
+    <form method="get" th:action="@{/oauth2/authorization/okta}"
+          th:unless="${#authorization.expression('isAuthenticated()')}">
+        <button id="login-button" class="btn btn-primary" type="submit">Login</button>
+    </form>
+</nav>
 
-    <div class="card bg-light mx-auto" th:if="${#authorization.expression('isAuthenticated()')}" style="max-width: 600px;" >
-        <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title mt-3 text-center">Add task</h4>
-            <br>
-        </article>
+<div class="card bg-light mx-auto" th:if="${#authorization.expression('isAuthenticated()')}" style="max-width: 600px;">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Add task</h4>
+        <br>
+    </article>
 
-        <form id="addTask" class="container" action="/tasks/add-task-post" method="POST">
-            <div class="form-group">
-                <label for="name">Task name</label>
-                <input class="form-control" id="name" name="name">
-            </div>
+    <form id="addTask" class="container" action="/tasks/add-task-post" method="POST">
+        <div class="form-group">
+            <label for="name">Task name</label>
+            <input class="form-control" id="name" name="name">
+        </div>
 
-            <div class="form-group">
-                <label for="description">Task description</label>
-                <textarea class="form-control" name="description" id="description" rows="3"></textarea>
-            </div>
+        <div class="form-group">
+            <label for="description">Task description</label>
+            <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+        </div>
 
-            <label for="priority">Priority</label>
-            <select class="form-control" id="priority" name="priority">
-                <option>HIGH</option>
-                <option>MEDIUM</option>
-                <option>LOW</option>
-            </select>
+        <label for="priority">Priority</label>
+        <select class="form-control" id="priority" name="priority">
+            <option>HIGH</option>
+            <option>MEDIUM</option>
+            <option>LOW</option>
+        </select>
 
-            <br>
-            <div class="form-group">
-                <label for="deadline">Deadline</label>
-                <input class="form-control" type="datetime-local" name="deadline" id="deadline" title="Enter deadline for your task">
-            </div>
+        <br>
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input class="form-control" type="datetime-local" name="deadline" id="deadline"
+                   title="Enter deadline for your task">
+        </div>
+        <div class="form-group">
             <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
-            <br>
-        </form>
+        </div>
+        <br>
+    </form>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="static/js/add-task.js"></script>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="static/js/add-task.js"></script>
+</div>
 
 </body>
 </html>

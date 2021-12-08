@@ -1,6 +1,5 @@
 package knu.groupproject.taskcatalogservice;
 
-import knu.groupproject.taskcatalogservice.model.Status;
 import knu.groupproject.taskcatalogservice.repository.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
