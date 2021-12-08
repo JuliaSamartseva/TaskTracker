@@ -69,4 +69,14 @@ public class TaskController {
         request,
         TaskClassDto.class);
   }
+
+  @RequestMapping(value = "/tasks/delete-task/{id}", method = RequestMethod.DELETE)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> deleteTask(@PathVariable Long id){
+    return restTemplate.exchange(
+            "http://task-catalog-service/catalog/delete-task/" + id,
+            HttpMethod.DELETE,
+            null,
+            Void.class);
+  }
 }

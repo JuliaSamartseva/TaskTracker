@@ -27,4 +27,10 @@ public class TaskCatalogResource {
     logger.info("Adding new task");
     taskService.saveTask(TaskMapper.fromTaskDto(task));
   }
+
+  @DeleteMapping("/delete-task/{id}")
+  public void deleteTask(@PathVariable Long id){
+    logger.info("Into catalog delete task method");
+    taskService.deleteTask(id);
+  }
 }
