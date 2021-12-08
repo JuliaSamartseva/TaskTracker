@@ -22,10 +22,10 @@ function deleteTask(task, id){
     });
 }
 
-$.getJSON("/classes", function (classes) {
+function fillTable(classes) {
+    $("#classes > tbody").html("");
     let $tableBody = $("#classes tbody");
     classes.forEach(function (item, index) {
-
         let now = new Date();
         let created = new Date(item.created);
         let deadline = new Date(item.deadline);
@@ -67,4 +67,15 @@ $.getJSON("/classes", function (classes) {
 
         $tableBody.append($line);
     })
+}
+
+$.getJSON("/classes", function (classes) {
+    fillTable(classes)
+});
+
+
+$('#sorting').change(function() {
+    $.getJSON("/classes/" + $(this).val(), function (classes) {
+        fillTable(classes)
+    });
 });

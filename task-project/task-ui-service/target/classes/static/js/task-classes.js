@@ -22,7 +22,7 @@ function deleteTask(task, id){
     });
 }
 
-$.getJSON("/classes", function (classes) {
+function fillTable(classes) {
     let $tableBody = $("#classes tbody");
     classes.forEach(function (item, index) {
 
@@ -67,4 +67,15 @@ $.getJSON("/classes", function (classes) {
 
         $tableBody.append($line);
     })
+}
+
+$.getJSON("/classes", function (classes) {
+    fillTable(classes)
+});
+
+
+$('#sorting').change(function() {
+    $.getJSON("/classes/" + $(this).val(), function (classes) {
+        fillTable(classes)
+    });
 });
