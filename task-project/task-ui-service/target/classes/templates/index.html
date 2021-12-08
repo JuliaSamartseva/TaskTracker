@@ -6,21 +6,44 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Task Tracker</title>
     <style>
+        tr.table-header{
+            height: 50px;
+        }
         td{
             border-right: 1px solid slategrey;
         }
         th, td.deadline, td.creation-time, td.status, td.priority{
-           text-align: center;
+            text-align: center;
+        }
+        .table td.deadline, .table td.creation-time, .table td.status, .table td.priority, .table td.delete-td, .table td.edit-td{
+            vertical-align: middle;
         }
         th{
             font-size: 1.3em;
         }
-        td.description{
+        .table td.description{
             width: 30%;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
         }
         td.name:hover, td.description:hover{
             overflow: auto;
         }
+        tr{
+            height: 80px;
+        }
+        input.delete-btn, button.btn-edit{
+            height: 25px;
+            margin: auto;
+            padding: 0;
+            display: block;
+        }
+
+        button.btn-edit{
+            width: 70px;
+            vertical-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -39,7 +62,7 @@
         <h1>Test table</h1>
         <table id="classes" class="table table-striped">
             <thead>
-            <tr>
+            <tr class="table-header">
                 <th scope="col">Task name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Deadline</th>
@@ -47,6 +70,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Priority</th>
                 <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
             </tr>
             </thead>
             <tbody>
