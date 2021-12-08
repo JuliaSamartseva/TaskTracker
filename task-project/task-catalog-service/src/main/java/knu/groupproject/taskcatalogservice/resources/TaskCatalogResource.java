@@ -22,6 +22,12 @@ public class TaskCatalogResource {
     return TaskMapper.mapTaskList(taskService.getAllTasks(email));
   }
 
+  @GetMapping("/{email}/{sort}")
+  public List<TaskClassDto> getSortedCatalog(@PathVariable String email, @PathVariable String sort) {
+    logger.info("Getting task list");
+    return TaskMapper.mapTaskList(taskService.getAllSortedTasks(email, sort));
+  }
+
   @PostMapping("/add-task")
   public void addTask(@RequestBody TaskClassDto task) {
     logger.info("Adding new task");

@@ -53,6 +53,19 @@ public class TaskController {
         new ParameterizedTypeReference<List<TaskClassDto>>() {});
   }
 
+  @RequestMapping("/classes/{sort}")
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<List<TaskClassDto>> listSortedCatalog(@AuthenticationPrincipal OidcUser user, @PathVariable String sort) {
+    String email = user.getEmail();
+    logger.info("Email:" + email);
+    logger.info("Get sorted tasks for user");
+    return restTemplate.exchange(
+            "http://task-catalog-service/catalog/" + email + "/" + sort,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<TaskClassDto>>() {});
+  }
+
   @RequestMapping(value = "/tasks/add-task-post", method = RequestMethod.POST)
   @PreAuthorize("hasAuthority('SCOPE_profile')")
   public ResponseEntity<?> addTask(
