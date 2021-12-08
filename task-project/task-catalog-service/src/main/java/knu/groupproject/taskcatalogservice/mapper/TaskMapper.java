@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskMapper {
-  private final static Logger logger = LoggerFactory.getLogger(TaskMapper.class);
+  private static final Logger logger = LoggerFactory.getLogger(TaskMapper.class);
 
   public static List<TaskClassDto> mapTaskList(List<Task> tasks) {
     return tasks.stream()

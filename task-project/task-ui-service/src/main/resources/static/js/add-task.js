@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     $("form[id='addTask']").validate({
         rules: {
             name: "required",
@@ -15,15 +15,15 @@ $(function() {
     });
 });
 
-$("#addTask").submit(function(e) {
+$("#addTask").submit(function (e) {
     e.preventDefault();
     let form = $(this);
     if (form.valid()) {
         let url = form.attr('action');
         var config = {};
-        jQuery(form).serializeArray().map(function(item) {
-            if ( config[item.name] ) {
-                if ( typeof(config[item.name]) === "string" ) {
+        jQuery(form).serializeArray().map(function (item) {
+            if (config[item.name]) {
+                if (typeof (config[item.name]) === "string") {
                     config[item.name] = [config[item.name]];
                 }
                 config[item.name].push(item.value);
@@ -40,10 +40,10 @@ $("#addTask").submit(function(e) {
             },
             url: url,
             data: JSON.stringify(config),
-            success: function() {
+            success: function () {
                 window.location.href = "/";
             },
-            error: function() {
+            error: function () {
                 alert('Error occurred');
             }
         });
