@@ -6,6 +6,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Task Tracker</title>
+    <style>
+        td{
+            border-right: 1px solid slategrey;
+        }
+        th, td.deadline, td.creation-time, td.status, td.priority{
+           text-align: center;
+        }
+        th{
+            font-size: 1.3em;
+        }
+        td.description{
+            width: 30%;
+        }
+        td.name:hover, td.description:hover{
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -19,21 +36,21 @@
     </form>
 </nav>
 
-<div id="content" th:if="${#authorization.expression('isAuthenticated()')}">
-    <h1>Test table</h1>
-    <table id="classes" class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Task name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Deadline</th>
-            <th scope="col">Created</th>
-            <th scope="col">Status</th>
-            <th scope="col">Priority</th>
-        </tr>
-        </thead>
-        <tbody>
-
+    <div id="content" th:if="${#authorization.expression('isAuthenticated()')}">
+        <h1>Test table</h1>
+        <table id="classes" class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Task name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Created</th>
+                <th scope="col">Status</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
         </tbody>
     </table>
 
