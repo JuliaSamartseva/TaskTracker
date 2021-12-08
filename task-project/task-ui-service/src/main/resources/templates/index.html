@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Task Tracker</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -15,16 +14,21 @@
         </form>
         <form method="get" th:action="@{/oauth2/authorization/okta}"
               th:unless="${#authorization.expression('isAuthenticated()')}">
-            <button id="login-button" class="btn btn-primary" type="submit" th:href="/">Login</button>
+            <button id="login-button" class="btn btn-primary" type="submit">Login</button>
         </form>
     </nav>
 
     <div id="content" th:if="${#authorization.expression('isAuthenticated()')}">
         <h1>Test table</h1>
-        <table id="classes">
+        <table id="classes" class="table table-striped">
             <thead>
             <tr>
-                <th>Test</th>
+                <th scope="col">Task name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Created</th>
+                <th scope="col">Status</th>
+                <th scope="col">Priority</th>
             </tr>
             </thead>
             <tbody>
