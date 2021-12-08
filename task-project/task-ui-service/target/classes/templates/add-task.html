@@ -3,22 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Add task</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+        <a class="navbar-brand" href="#">Task tracker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <nav class="navbar navbar-default">
-        <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}"
-              class="navbar-form navbar-right">
-            <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
-        </form>
-        <form method="get" th:action="@{/oauth2/authorization/okta}"
-              th:unless="${#authorization.expression('isAuthenticated()')}">
-            <button id="login-button" class="btn btn-primary" type="submit">Login</button>
-        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action1</a>
+                        <a class="dropdown-item" href="#">Action2</a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/add-task">Add task</a>
+                </li>
+
+                <li class="nav-item">
+                    <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <button id="logout-button" type="submit" class="btn btn-outline-warning my-2 my-sm-0">Logout</button>
+                    </form>
+                    <form method="get" th:action="@{/oauth2/authorization/okta}"
+                          th:unless="${#authorization.expression('isAuthenticated()')}">
+                        <button id="login-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="card bg-light mx-auto" th:if="${#authorization.expression('isAuthenticated()')}" style="max-width: 600px;" >
+    <div class="card bg-light mx-auto" th:if="${#authorization.expression('isAuthenticated()')}" style="max-width: 600px;">
         <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title mt-3 text-center">Add task</h4>
             <br>
@@ -45,18 +73,27 @@
             <br>
             <div class="form-group">
                 <label for="deadline">Deadline</label>
-                <input class="form-control" type="datetime-local" name="deadline" id="deadline" title="Enter deadline for your task">
+                <input class="form-control" type="datetime-local" name="deadline" id="deadline"
+                       title="Enter deadline for your task">
             </div>
-            <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+            </div>
             <br>
         </form>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
         <script src="static/js/add-task.js"></script>
     </div>
-
 </body>
 </html>
