@@ -2,9 +2,10 @@ package knu.groupproject.taskcatalogservice.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class TaskClassDto {
   private Long id;
   private String name;

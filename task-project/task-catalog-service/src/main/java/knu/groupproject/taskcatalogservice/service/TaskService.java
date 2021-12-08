@@ -13,7 +13,7 @@ public class TaskService {
   @Autowired private TaskRepository taskRepository;
 
   public List<Task> getAllTasks(String userEmail) {
-    return taskRepository.findAllByUserEmail(userEmail)
+    return taskRepository.findAllByUserEmail(userEmail);
   }
 
   public Optional<Task> getTaskById(Long id) {

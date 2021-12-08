@@ -10,7 +10,6 @@
     <nav class="navbar navbar-default">
         <form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}"
               class="navbar-form navbar-right">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
         </form>
         <form method="get" th:action="@{/oauth2/authorization/okta}"
@@ -21,10 +20,15 @@
 
     <div id="content" th:if="${#authorization.expression('isAuthenticated()')}">
         <h1>Test table</h1>
-        <table id="classes">
+        <table id="classes" class="table table-striped">
             <thead>
             <tr>
-                <th>Test</th>
+                <th scope="col">Task name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Created</th>
+                <th scope="col">Status</th>
+                <th scope="col">Priority</th>
             </tr>
             </thead>
             <tbody>
