@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class TaskClassDto {
+  @JsonProperty("id")
   private Long id;
 
   @JsonProperty("name")
