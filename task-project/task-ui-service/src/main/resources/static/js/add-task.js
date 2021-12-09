@@ -41,7 +41,14 @@ $("#addTask").submit(function (e) {
             url: url,
             data: JSON.stringify(config),
             success: function () {
-                window.location.href = "/";
+                $.ajax({
+                    type: 'GET',
+                    url: `/statistics/created_tasks`,
+                    complete: function() {
+                        window.location.href = "/";
+                    }
+                });
+
             },
             error: function () {
                 alert('Error occurred');

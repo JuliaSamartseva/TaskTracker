@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     function fillTable(classes) {
         $("#classes > tbody").html("");
         let $tableBody = $("#classes tbody");
@@ -78,6 +79,10 @@ function deleteTask(task, id) {
     $.ajax({
         url: `/tasks/delete-task/${id}`,
         type: 'DELETE',
+    });
+    $.ajax({
+        type: 'GET',
+        url: `/statistics/deleted_tasks`,
     });
 }
 

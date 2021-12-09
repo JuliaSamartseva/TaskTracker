@@ -7,52 +7,25 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Task Tracker</title>
     <style>
-        table{
-            border-bottom:  1px solid slategrey;
-        }
-
         td {
             border-right: 1px solid slategrey;
-            height: 80px;
-        }
-
-        th {
-            font-size: 1.3em;
-            height: 50px;
         }
 
         th, td.deadline, td.creation-time, td.status, td.priority {
             text-align: center;
         }
-        .table td.deadline, .table td.creation-time, .table td.status, .table td.priority, .table td.delete-td, .table td.edit-td{
-            vertical-align: middle;
+
+        th {
+            font-size: 1.3em;
         }
 
-        td.description{
-            overflow: hidden;
-
-        }
-
-        th.description, td.description{
+        td.description {
             width: 30%;
         }
 
         td.name:hover, td.description:hover {
-            overflow-y: auto;
+            overflow: auto;
         }
-
-        input.delete-btn, button.btn-edit{
-            height: 25px;
-            margin: auto;
-            padding: 0;
-            display: block;
-        }
-
-        button.btn-edit{
-            width: 70px;
-            vertical-align: center;
-        }
-
     </style>
 </head>
 <body>
@@ -98,44 +71,13 @@
 </nav>
 
 <div id="content" th:if="${#authorization.expression('isAuthenticated()')}">
-    <div class="container-fluid">
-        <div class="panel-body">
-            <label for="sorting">Sort by: </label>
-            <select id="sorting" class="form-select" aria-label="Default select example">
-                <option selected value="created">Created</option>
-                <option value="name">Name</option>
-                <option value="deadline">Deadline</option>
-                <option value="priority">Priority</option>
-            </select>
-
-            <div class="float-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-filter" data-target="done">Done</button>
-                    <button type="button" class="btn btn-warning btn-filter" data-target="in_progress">In progress</button>
-                    <button type="button" class="btn btn-danger btn-filter" data-target="created">Created</button>
-                    <button type="button" class="btn btn-info btn-filter" data-target="all">All</button>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <p>Total tasks created: <mark><span id="created"></span></mark></p>
+        <p>Total tasks deleted: <mark><span id="deleted"></span></mark></p>
+        <p>Total tasks done: <mark><span id="total"></span></mark></p>
+        <p>Total tasks done by deadline: <mark><span id="by_deadline"></span></mark></p>
+        <p>Total tasks done over deadline: <mark><span id="over_deadline"></span></mark></p>
     </div>
-    <br>
-
-    <table id="classes" class="table table-striped" th:if="${#authorization.expression('isAuthenticated()')}">
-        <thead>
-        <tr class="table-header">
-            <th scope="col">Task name</th>
-            <th class="description" scope="col">Description</th>
-            <th scope="col">Deadline</th>
-            <th scope="col">Created</th>
-            <th scope="col">Status</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Delete</th>
-            <th scope="col">Edit</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
@@ -146,7 +88,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <script src="static/js/task-classes.js"></script>
+    <script src="static/js/general-statistics.js"></script>
 </div>
 
 </body>

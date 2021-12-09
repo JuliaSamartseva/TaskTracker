@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     function fillTable(classes) {
         $("#classes > tbody").html("");
         let $tableBody = $("#classes tbody");
@@ -79,6 +80,10 @@ function deleteTask(task, id) {
         url: `/tasks/delete-task/${id}`,
         type: 'DELETE',
     });
+    $.ajax({
+        type: 'GET',
+        url: `/statistics/deleted_tasks`,
+    });
 }
 
 function editTask(tr_id, id){
@@ -140,7 +145,7 @@ function showChangesInTable(task, tr_id){
     $(`tr#${tr_id} td.description textarea`).remove();
     $(`tr#${tr_id} td.description`).text(task.description);
     $(`tr#${tr_id} td.deadline input`).remove();
-    $(`tr#${tr_id} td.deadline`).text(task.deadline);
+    $(`tr#${tr_id} td.deadline`).text(dateToString(new Date(task.deadline)));
     $(`tr#${tr_id} td.status select`).remove();
     $(`tr#${tr_id} td.status`).text(task.status);
     $(`tr#${tr_id} td.priority select`).remove();
