@@ -140,7 +140,7 @@ function showChangesInTable(task, tr_id){
     $(`tr#${tr_id} td.description textarea`).remove();
     $(`tr#${tr_id} td.description`).text(task.description);
     $(`tr#${tr_id} td.deadline input`).remove();
-    $(`tr#${tr_id} td.deadline`).text(task.deadline);
+    $(`tr#${tr_id} td.deadline`).text(dateToString(new Date(task.deadline)));
     $(`tr#${tr_id} td.status select`).remove();
     $(`tr#${tr_id} td.status`).text(task.status);
     $(`tr#${tr_id} td.priority select`).remove();
