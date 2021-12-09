@@ -7,11 +7,18 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Task Tracker</title>
     <style>
-        tr.table-header{
-            height: 50px;
+        table{
+            border-bottom:  1px solid slategrey;
         }
+
         td {
             border-right: 1px solid slategrey;
+            height: 80px;
+        }
+
+        th {
+            font-size: 1.3em;
+            height: 50px;
         }
 
         th, td.deadline, td.creation-time, td.status, td.priority {
@@ -21,20 +28,19 @@
             vertical-align: middle;
         }
 
-        th {
-            font-size: 1.3em;
-        }
-        .table td.description{
-            width: 30%;
+        td.description{
             overflow: hidden;
+
+        }
+
+        th.description, td.description{
+            width: 30%;
         }
 
         td.name:hover, td.description:hover {
-            overflow: auto;
+            overflow-y: auto;
         }
-        tr{
-            height: 80px;
-        }
+
         input.delete-btn, button.btn-edit{
             height: 25px;
             margin: auto;
@@ -118,12 +124,13 @@
         <thead>
         <tr class="table-header">
             <th scope="col">Task name</th>
-            <th scope="col">Description</th>
+            <th class="description" scope="col">Description</th>
             <th scope="col">Deadline</th>
             <th scope="col">Created</th>
             <th scope="col">Status</th>
             <th scope="col">Priority</th>
             <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
         </tr>
         </thead>
         <tbody>
