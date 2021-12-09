@@ -39,4 +39,9 @@ public class TaskCatalogResource {
     logger.info("Into catalog delete task method");
     taskService.deleteTask(id);
   }
+  @PostMapping("/edit-task/{id}")
+  public void editTask(@RequestBody TaskClassDto task, @PathVariable Long id){
+    logger.info("Got edited task");
+    taskService.updateTask(task, id);
+  }
 }

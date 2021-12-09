@@ -82,6 +82,7 @@ function deleteTask(task, id) {
 }
 
 function editTask(tr_id, id){
+    $(`tr#${tr_id}`).addClass("on-edit");
     setTaskNameTextArea(tr_id);
     setTaskDescriptionTextArea(tr_id);
     setTaskDeadlineInput(tr_id);
@@ -103,19 +104,34 @@ function saveChanges(tr_id, id){
     let newTaskName = $(`tr#${tr_id} td.name textarea`).val();
     let newTaskDescription = $(`tr#${tr_id} td.description textarea`).val();
     let newTaskDeadline = $(`tr#${tr_id} td.deadline input`).val();
-    newTaskDeadline = dateToString(new Date(newTaskDeadline));
     let newTaskStatus = $(`tr#${tr_id} td.status select option:selected`).val();
     let newTaskPriority = $(`tr#${tr_id} td.priority select option:selected`).val();
     let editedTask = {};
     editedTask.name = newTaskName;
     editedTask.description = newTaskDescription;
     editedTask.deadline = newTaskDeadline;
-    editedTask.created = $(`tr#${tr_id} td.creation-time`).text();
+    editedTask.created =  getDateInDatetimeLocalFormat($(`tr#${tr_id} td.creation-time`).text());
     editedTask.status = newTaskStatus;
     editedTask.priority = newTaskPriority;
     showChangesInTable(editedTask, tr_id);
     changeAcceptButtonToEdit($button);
-    //sendChangesOnServer(editedTask, id);
+    $(`tr#${tr_id}`).removeClass("on-edit");
+    sendChangesToServer(editedTask, id);
+}
+
+function sendChangesToServer(task, id){
+    $.ajax({
+        type: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: `/tasks/edit-task/${id}`,
+        data: JSON.stringify(task),
+        error: function () {
+            alert('Error occurred');
+        }
+    });
 }
 
 function showChangesInTable(task, tr_id){

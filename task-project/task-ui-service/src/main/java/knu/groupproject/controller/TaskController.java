@@ -97,4 +97,16 @@ public class TaskController {
             null,
             Void.class);
   }
+
+  @RequestMapping(value = "/tasks/edit-task/{id}", method = RequestMethod.POST)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> editTask(@PathVariable Long id, @RequestBody TaskClassDto task){
+    logger.info("UI service: got task dto: "+ task.getName());
+    HttpEntity<TaskClassDto> request = new HttpEntity<>(task);
+    return restTemplate.exchange(
+            "http://task-catalog-service/catalog/edit-task/"+id,
+            HttpMethod.POST,
+            request,
+            TaskClassDto.class);
+  }
 }

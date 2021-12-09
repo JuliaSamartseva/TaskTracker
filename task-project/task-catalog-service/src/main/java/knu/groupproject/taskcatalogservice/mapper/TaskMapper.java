@@ -38,6 +38,7 @@ public class TaskMapper {
   public static Task fromTaskDto(TaskClassDto dtoTask) {
     Task task = new Task();
     logger.info("Get task from dto: " + dtoTask.getName());
+
     task.setName(dtoTask.getName());
     task.setDescription(dtoTask.getDescription());
 
@@ -60,6 +61,7 @@ public class TaskMapper {
     task.setStatus(Status.valueOf(dtoTask.getStatus()));
     task.setPriority(Priority.valueOf(dtoTask.getPriority()));
     task.setUserEmail(dtoTask.getUserEmail());
+    logger.info("TaskMapper: " + task);
     return task;
   }
 }
