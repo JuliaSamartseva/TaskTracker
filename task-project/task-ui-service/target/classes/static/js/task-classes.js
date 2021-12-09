@@ -22,6 +22,10 @@ $(document).ready(function () {
             url: `/tasks/delete-task/${id}`,
             type: 'DELETE',
         });
+        $.ajax({
+            type: 'GET',
+            url: `/statistics/deleted_tasks`,
+        });
     }
 
     function fillTable(classes) {

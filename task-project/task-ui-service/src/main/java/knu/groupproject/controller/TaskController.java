@@ -1,5 +1,6 @@
 package knu.groupproject.controller;
 
+import knu.groupproject.dto.StatisticsClassDto;
 import knu.groupproject.dto.TaskClassDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,11 @@ public class TaskController {
     return new ModelAndView("add-task");
   }
 
+  @RequestMapping("/statistics")
+  public ModelAndView statistics() {
+    return new ModelAndView("general-statistics");
+  }
+
   @RequestMapping("/classes")
   @PreAuthorize("hasAuthority('SCOPE_profile')")
   public ResponseEntity<List<TaskClassDto>> listCatalog(@AuthenticationPrincipal OidcUser user) {
@@ -64,6 +70,19 @@ public class TaskController {
             HttpMethod.GET,
             null,
             new ParameterizedTypeReference<List<TaskClassDto>>() {});
+  }
+
+  @RequestMapping("/get-statistics")
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<StatisticsClassDto> listStatistics(@AuthenticationPrincipal OidcUser user) {
+    String email = user.getEmail();
+    logger.info("Email:" + email);
+    logger.info("Get general statistics for user");
+    return restTemplate.exchange(
+            "http://task-statistics-service/statistics/" + email,
+            HttpMethod.GET,
+            null,
+            StatisticsClassDto.class);
   }
 
   @RequestMapping(value = "/tasks/add-task-post", method = RequestMethod.POST)
@@ -94,6 +113,61 @@ public class TaskController {
     return restTemplate.exchange(
             "http://task-catalog-service/catalog/delete-task/" + id,
             HttpMethod.DELETE,
+            null,
+            Void.class);
+  }
+
+  @RequestMapping(value = "/statistics/created_tasks", method = RequestMethod.GET)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> updateCreatedTasks(@AuthenticationPrincipal OidcUser user) {
+    String email = user.getEmail();
+    return restTemplate.exchange(
+            "http://task-statistics-service/statistics/created_tasks/" + email,
+            HttpMethod.GET,
+            null,
+            Void.class);
+  }
+
+  @RequestMapping(value = "/statistics/done_tasks", method = RequestMethod.GET)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> updateDoneTasks(@AuthenticationPrincipal OidcUser user) {
+    String email = user.getEmail();
+    return restTemplate.exchange(
+            "http://task-statistics-service/statistics/done_tasks/" + email,
+            HttpMethod.GET,
+            null,
+            Void.class);
+  }
+
+  @RequestMapping(value = "/statistics/deleted_tasks", method = RequestMethod.GET)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> updateDeletedTasks(@AuthenticationPrincipal OidcUser user) {
+    String email = user.getEmail();
+    return restTemplate.exchange(
+            "http://task-statistics-service/statistics/deleted_tasks/" + email,
+            HttpMethod.GET,
+            null,
+            Void.class);
+  }
+
+  @RequestMapping(value = "/statistics/by_deadline", method = RequestMethod.GET)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> updateTotalTasksDoneByDeadline(@AuthenticationPrincipal OidcUser user) {
+    String email = user.getEmail();
+    return restTemplate.exchange(
+            "http://task-statistics-service/statistics/by_deadline/" + email,
+            HttpMethod.GET,
+            null,
+            Void.class);
+  }
+
+  @RequestMapping(value = "/statistics/over_deadline", method = RequestMethod.GET)
+  @PreAuthorize("hasAuthority('SCOPE_profile')")
+  public ResponseEntity<?> updateTotalTasksDoneOverDeadline(@AuthenticationPrincipal OidcUser user) {
+    String email = user.getEmail();
+    return restTemplate.exchange(
+            "http://task-statistics-service/statistics/over_deadline/" + email,
+            HttpMethod.GET,
             null,
             Void.class);
   }
