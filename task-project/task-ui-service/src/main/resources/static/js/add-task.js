@@ -48,7 +48,6 @@ $("#addTask").submit(function (e) {
                         window.location.href = "/";
                     }
                 });
-
             },
             error: function () {
                 alert('Error occurred');

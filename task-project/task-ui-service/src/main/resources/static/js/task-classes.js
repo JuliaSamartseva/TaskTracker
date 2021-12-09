@@ -133,6 +133,28 @@ function sendChangesToServer(task, id){
         },
         url: `/tasks/edit-task/${id}`,
         data: JSON.stringify(task),
+        success: function () {
+            if (task.status === "DONE") {
+                $.ajax({
+                    type: 'GET',
+                    url: `/statistics/done_tasks`,
+                });
+
+                let d = new Date();
+
+                if (d < new Date(task.deadline)) {
+                    $.ajax({
+                        type: 'GET',
+                        url: `/statistics/by_deadline`,
+                    });
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: `/statistics/over_deadline`,
+                    });
+                }
+            }
+        },
         error: function () {
             alert('Error occurred');
         }
