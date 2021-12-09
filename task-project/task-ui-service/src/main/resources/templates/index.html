@@ -7,25 +7,18 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Task Tracker</title>
     <style>
-        body {
-        width: 100%;
-        }
         table{
-            table-layout: fixed;
-            border-bottom: 1px solid slategrey;
-        }
-
-        tr{
-            height: 50px;
+            border-bottom:  1px solid slategrey;
         }
 
         td {
-            border-right: 1px solid slategrey
-            max-height: 80px;
+            border-right: 1px solid slategrey;
+            height: 80px;
         }
 
         th {
             font-size: 1.3em;
+            height: 50px;
         }
 
         th, td.deadline, td.creation-time, td.status, td.priority {
@@ -37,7 +30,7 @@
 
         td.description{
             overflow: hidden;
-            white-space: normal;
+
         }
 
         th.description, td.description{
