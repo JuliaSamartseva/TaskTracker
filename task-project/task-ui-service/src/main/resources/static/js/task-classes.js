@@ -1,20 +1,4 @@
 $(document).ready(function () {
-
-    function dateToString(date) {
-        let year = date.getFullYear();
-
-        let month = (1 + date.getMonth()).toString();
-        month = month.length > 1 ? month : '0' + month;
-
-        let day = date.getDate().toString();
-        day = day.length > 1 ? day : '0' + day;
-
-        let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
-
-        let minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-
-        return month + "/" + day + "/" + year + " " + hour + ":" + minute;
-    }
     function fillTable(classes) {
         $("#classes > tbody").html("");
         let $tableBody = $("#classes tbody");
@@ -58,13 +42,13 @@ $(document).ready(function () {
 
 
             $line.append($(`<td class='delete-td'><input type='image' class='delete-btn' alt='Delete' 
-                            src='../assets/delete.png'
+                            src='../assets/delete.png' id='${index}'
                             onclick='deleteTask(document.getElementById(${index}), this.value)' value='${item.id}'>`));
-            $line.append($(`<td class='edit-td'><button class="btn btn-success btn-edit" value='${item.id}' 
+            $line.append($(`<td class='edit-td'><button id='${index}' class="btn btn-success btn-edit" value='${item.id}' 
                             onclick="editTask(${index}, this.value)">Edit</button>`));
 
             $tableBody.append($line);
-        })
+        });
     }
 
     $.getJSON("/classes", function (classes) {
@@ -87,16 +71,7 @@ $(document).ready(function () {
             $('.table > tbody tr').css('display', 'none').fadeIn('slow');
         }
     });
-
 });
-
-function editTask(tr_id, id){
-    setTaskNameTextArea(tr_id);
-    setTaskDescriptionTextArea(tr_id);
-    setTaskDeadlineInput(tr_id);
-    setTaskStatusOptions(tr_id);
-    setTaskPriorityOptions(tr_id)
-}
 
 function deleteTask(task, id) {
     task.style.display = "none";
@@ -105,6 +80,64 @@ function deleteTask(task, id) {
         type: 'DELETE',
     });
 }
+
+function editTask(tr_id, id){
+    setTaskNameTextArea(tr_id);
+    setTaskDescriptionTextArea(tr_id);
+    setTaskDeadlineInput(tr_id);
+    setTaskStatusOptions(tr_id);
+    setTaskPriorityOptions(tr_id)
+    changeEditButtonToAccept(tr_id, id);
+}
+
+function changeEditButtonToAccept(tr_id, id){
+    let $button = $(`tr#${tr_id} button.btn-edit`);
+    $button.removeClass("btn-edit");
+    $button.addClass("btn-accept");
+    $button.text("Accept");
+    $button.attr("onclick","saveChanges(this.id, this.value)");
+}
+
+function saveChanges(tr_id, id){
+    let $button = $(`tr#${tr_id} button.btn-accept`)
+    let newTaskName = $(`tr#${tr_id} td.name textarea`).val();
+    let newTaskDescription = $(`tr#${tr_id} td.description textarea`).val();
+    let newTaskDeadline = $(`tr#${tr_id} td.deadline input`).val();
+    newTaskDeadline = dateToString(new Date(newTaskDeadline));
+    let newTaskStatus = $(`tr#${tr_id} td.status select option:selected`).val();
+    let newTaskPriority = $(`tr#${tr_id} td.priority select option:selected`).val();
+    let editedTask = {};
+    editedTask.name = newTaskName;
+    editedTask.description = newTaskDescription;
+    editedTask.deadline = newTaskDeadline;
+    editedTask.created = $(`tr#${tr_id} td.creation-time`).text();
+    editedTask.status = newTaskStatus;
+    editedTask.priority = newTaskPriority;
+    showChangesInTable(editedTask, tr_id);
+    changeAcceptButtonToEdit($button);
+    //sendChangesOnServer(editedTask, id);
+}
+
+function showChangesInTable(task, tr_id){
+    $(`tr#${tr_id} td.name textarea`).remove();
+    $(`tr#${tr_id} td.name`).text(task.name);
+    $(`tr#${tr_id} td.description textarea`).remove();
+    $(`tr#${tr_id} td.description`).text(task.description);
+    $(`tr#${tr_id} td.deadline input`).remove();
+    $(`tr#${tr_id} td.deadline`).text(task.deadline);
+    $(`tr#${tr_id} td.status select`).remove();
+    $(`tr#${tr_id} td.status`).text(task.status);
+    $(`tr#${tr_id} td.priority select`).remove();
+    $(`tr#${tr_id} td.priority`).text(task.priority);
+}
+
+function changeAcceptButtonToEdit($button){
+    $button.removeClass("btn-accept");
+    $button.addClass("btn-edit");
+    $button.text("Edit");
+    $button.attr("onclick","editTask(this.id, this.value)");
+}
+
 
 function setTaskNameTextArea(tr_id){
     let $taskNameTd = $(`tr#${tr_id} td.name`);
@@ -125,7 +158,7 @@ function setTaskDescriptionTextArea(tr_id){
 }
 
 function getDateInDatetimeLocalFormat(date){
-    let dateParts = date.split(/ /);
+    let dateParts = date.split(" ");
     let dateMonthDayYear = dateParts[0];
     let dateHourMinute = dateParts[1];
     let dateMonthDayYearArr = dateMonthDayYear.split('/');
@@ -230,3 +263,22 @@ function setTaskPriorityOptions(tr_id){
     appendPriorityOptions($selectOptions, taskPriority);
     $taskPriorityTd.append($selectOptions);
 }
+
+function dateToString(date) {
+    let year = date.getFullYear();
+
+    let month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    let day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
+
+    let minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+
+    return month + "/" + day + "/" + year + " " + hour + ":" + minute;
+}
+
+
+
